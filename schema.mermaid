@@ -1,0 +1,105 @@
+erDiagram
+    USERS ||--o{ PICTURES : has
+    USERS ||--o{ USER_TAGS : has
+    TAGS ||--o{ USER_TAGS : categorized_in
+    USERS ||--o{ LIKES : gives
+    USERS ||--o{ LIKES : receives
+    USERS ||--o{ PROFILE_VIEWS : visits
+    USERS ||--o{ PROFILE_VIEWS : visited
+    USERS ||--o{ BLOCKS : blocks
+    USERS ||--o{ BLOCKS : blocked_by
+    USERS ||--o{ REPORTS : reports
+    USERS ||--o{ REPORTS : reported
+    USERS ||--o{ MESSAGES : sends
+    USERS ||--o{ MESSAGES : receives
+    USERS ||--o{ NOTIFICATIONS : receives
+    USERS ||--o{ NOTIFICATIONS : triggers
+
+    USERS {
+        INTEGER id PK
+        TEXT username UK
+        TEXT email UK
+        TEXT password_hash
+        TEXT first_name
+        TEXT last_name
+        TEXT gender
+        TEXT sexual_pref
+        TEXT biography
+        INTEGER fame_rating
+        REAL latitude
+        REAL longitude
+        TEXT location_name
+        INTEGER is_gps_enabled
+        INTEGER is_verified
+        TEXT verification_token
+        TEXT reset_token
+        TEXT reset_token_expires_at
+        INTEGER is_online
+        TEXT last_connection
+        TEXT created_at
+    }
+
+    PICTURES {
+        INTEGER id PK
+        INTEGER user_id FK
+        TEXT file_path
+        INTEGER is_profile_pic
+        TEXT created_at
+    }
+
+    TAGS {
+        INTEGER id PK
+        TEXT name UK
+    }
+
+    USER_TAGS {
+        INTEGER user_id PK,FK
+        INTEGER tag_id PK,FK
+    }
+
+    LIKES {
+        INTEGER id PK
+        INTEGER sender_id FK
+        INTEGER receiver_id FK
+        TEXT created_at
+    }
+
+    PROFILE_VIEWS {
+        INTEGER id PK
+        INTEGER visitor_id FK
+        INTEGER viewed_id FK
+        TEXT created_at
+    }
+
+    BLOCKS {
+        INTEGER id PK
+        INTEGER blocker_id FK
+        INTEGER blocked_id FK
+        TEXT created_at
+    }
+
+    REPORTS {
+        INTEGER id PK
+        INTEGER reporter_id FK
+        INTEGER reported_id FK
+        TEXT reason
+        TEXT created_at
+    }
+
+    MESSAGES {
+        INTEGER id PK
+        INTEGER sender_id FK
+        INTEGER receiver_id FK
+        TEXT content
+        INTEGER is_read
+        TEXT created_at
+    }
+
+    NOTIFICATIONS {
+        INTEGER id PK
+        INTEGER recipient_id FK
+        INTEGER sender_id FK
+        TEXT type
+        INTEGER is_read
+        TEXT created_at
+    }
